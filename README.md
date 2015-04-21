@@ -1,5 +1,7 @@
 CHFiles is a CommandHelper extension that allows you to work with files and directory and interact with them from whithin your server.
 
+Get the latest release here: [releases](https://github.com/macjuul/CHFiles/releases)
+
 # Functions:
 
 * **copy_file(FromFile, ToFile)** - Copy a file (or directory) to another location, with a new name
