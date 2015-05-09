@@ -12,7 +12,7 @@
 /* 12:   */ {
 /* 13:   */   public Version getVersion()
 /* 14:   */   {
-/* 15:14 */     return new SimpleVersion(1, 0, 1);
+/* 15:14 */     return new SimpleVersion(1, 0, 3);
 /* 16:   */   }
 /* 17:   */   
 /* 18:   */   public void onStartup()
@@ -27,7 +27,7 @@
 /* 27:   */ }
 
 
-/* Location:           D:\Users\julian\Documents\Files\eclipse\projects\CHFiles-1.0.2-SNAPSHOT.jar
+/* Location:           D:\Users\julian\Documents\Files\eclipse\projects\CHFiles-1.0.3-SNAPSHOT.jar
  * Qualified Name:     me.macjuul.chfiles.LifeCycle
  * JD-Core Version:    0.7.0.1
  */
