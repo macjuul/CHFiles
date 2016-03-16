@@ -1,25 +1,29 @@
 package me.macjuul.chfiles.Functions;
 
+import java.io.File;
+
 import com.laytonsmith.PureUtilities.SimpleVersion;
 import com.laytonsmith.PureUtilities.Version;
 import com.laytonsmith.annotations.api;
 import com.laytonsmith.core.Security;
-import com.laytonsmith.core.constructs.*;
+import com.laytonsmith.core.constructs.CArray;
+import com.laytonsmith.core.constructs.CString;
+import com.laytonsmith.core.constructs.Construct;
+import com.laytonsmith.core.constructs.Target;
 import com.laytonsmith.core.environments.Environment;
+import com.laytonsmith.core.exceptions.ConfigRuntimeException;
 import com.laytonsmith.core.exceptions.CRE.CREIOException;
 import com.laytonsmith.core.exceptions.CRE.CRESecurityException;
 import com.laytonsmith.core.exceptions.CRE.CREThrowable;
-import com.laytonsmith.core.exceptions.ConfigRuntimeException;
 import com.laytonsmith.core.functions.AbstractFunction;
-
-import java.io.File;
 
 /**
  * Created by bexco on 2016-03-16.
  */
 @api
 public class list_files extends AbstractFunction {
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Class<? extends CREThrowable>[] thrown() {
         return new Class[]{
                 CRESecurityException.class,

@@ -1,5 +1,7 @@
 package me.macjuul.chfiles.Functions;
 
+import java.io.File;
+
 import com.laytonsmith.PureUtilities.SimpleVersion;
 import com.laytonsmith.PureUtilities.Version;
 import com.laytonsmith.annotations.api;
@@ -8,22 +10,19 @@ import com.laytonsmith.core.constructs.CVoid;
 import com.laytonsmith.core.constructs.Construct;
 import com.laytonsmith.core.constructs.Target;
 import com.laytonsmith.core.environments.Environment;
+import com.laytonsmith.core.exceptions.ConfigRuntimeException;
 import com.laytonsmith.core.exceptions.CRE.CREIOException;
 import com.laytonsmith.core.exceptions.CRE.CRESecurityException;
 import com.laytonsmith.core.exceptions.CRE.CREThrowable;
-import com.laytonsmith.core.exceptions.ConfigRuntimeException;
 import com.laytonsmith.core.functions.AbstractFunction;
-import com.laytonsmith.libs.org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by bexco on 2016-03-16.
  */
 @api
 public class rename_file extends AbstractFunction {
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Class<? extends CREThrowable>[] thrown() {
         return new Class[]{
                 CREIOException.class,
