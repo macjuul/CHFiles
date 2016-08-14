@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="CHFiles-2.0">
-    <output-path>$PROJECT_DIR$/out/artifacts/CHFiles</output-path>
-    <root id="archive" name="CHFiles-2.0.jar">
-      <element id="module-output" name="CHFiles" />
-    </root>
-  </artifact>
-</component>

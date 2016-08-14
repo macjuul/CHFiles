@@ -2,5 +2,5 @@
 /libs/
 /.idea/
 /.settings/
-.project
-
+/.project
+/target/
