@@ -1,27 +1,19 @@
 package me.macjuul.chfiles;
 
-import java.io.File;
-import java.io.IOException;
-
+import com.laytonsmith.PureUtilities.Common.FileUtil;
 import com.laytonsmith.PureUtilities.SimpleVersion;
 import com.laytonsmith.PureUtilities.Version;
-import com.laytonsmith.PureUtilities.Common.FileUtil;
 import com.laytonsmith.annotations.api;
 import com.laytonsmith.core.Security;
-import com.laytonsmith.core.constructs.CArray;
-import com.laytonsmith.core.constructs.CBoolean;
-import com.laytonsmith.core.constructs.CString;
-import com.laytonsmith.core.constructs.CVoid;
-import com.laytonsmith.core.constructs.Construct;
-import com.laytonsmith.core.constructs.Target;
+import com.laytonsmith.core.constructs.*;
 import com.laytonsmith.core.environments.Environment;
+import com.laytonsmith.core.exceptions.CRE.*;
 import com.laytonsmith.core.exceptions.ConfigRuntimeException;
-import com.laytonsmith.core.exceptions.CRE.CREFormatException;
-import com.laytonsmith.core.exceptions.CRE.CREIOException;
-import com.laytonsmith.core.exceptions.CRE.CRESecurityException;
-import com.laytonsmith.core.exceptions.CRE.CREThrowable;
 import com.laytonsmith.core.functions.AbstractFunction;
 import com.laytonsmith.libs.org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.IOException;
 
 public class FileFunctions {
 	public static String docs() {
@@ -268,12 +260,13 @@ public class FileFunctions {
 	
 	@api
 	public static class list_files extends AbstractFunction {
+
 	    @SuppressWarnings("unchecked")
 	    @Override
 	    public Class<? extends CREThrowable>[] thrown() {
-	        return new Class[]{
-	                CRESecurityException.class,
-	                CREIOException.class
+	        return new Class[] {
+                CRESecurityException.class,
+                CREIOException.class
 	        };
 	    }
 
@@ -282,7 +275,7 @@ public class FileFunctions {
 	        return true;
 	    }
 
-	    
+	    @Override
 	    public Boolean runAsync() {
 	        return true;
 	    }
@@ -290,17 +283,24 @@ public class FileFunctions {
 	    @Override
 	    public Construct exec(Target t, Environment env, Construct... args) throws ConfigRuntimeException {
 	        File loc = new File(t.file().getParentFile(), args[0].val());
+
 	        if(!Security.CheckSecurity(loc)) {
 	            throw new CRESecurityException("You do not have permission to access the file '" + loc.getAbsolutePath() + "'", t);
 	        }
+
 	        CArray ret = new CArray(t);
+
 	        if(loc.exists() && loc.isDirectory()) {
 	            String[] list = loc.list();
-	            for(String file:list) {
+
+	            if(list == null)
+	            	throw new CRENotFoundException("Unable to locate directory", t);
+
+	            for(String file : list) {
 	                ret.push(new CString(file, t), t);
 	            }
 	        } else {
-	            throw new CREIOException("This path is not directory.", t);
+	            throw new CREIOException("The specified path is not a directory", t);
 	        }
 	        return ret;
 	    }
@@ -357,9 +357,11 @@ public class FileFunctions {
 	            throw new CREIOException(loc.getAbsolutePath() + "Doesn't exists", t);
 	        }
 	        if(loc.isDirectory()) {
-	            loc.renameTo(new File(loc.getParent() + File.pathSeparator + args[1].val() + File.pathSeparator));
+		        //noinspection ResultOfMethodCallIgnored
+		        loc.renameTo(new File(loc.getParent() + File.pathSeparator + args[1].val() + File.pathSeparator));
 	        } else if(loc.isFile()) {
-	            loc.renameTo(new File(loc.getParent() + File.pathSeparator + args[1].val()));
+		        //noinspection ResultOfMethodCallIgnored
+		        loc.renameTo(new File(loc.getParent() + File.pathSeparator + args[1].val()));
 	        }
 	        return CVoid.VOID;
 	    }
